@@ -1,0 +1,44 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.advws.ricews</groupId>
+	<artifactId>ricews</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	
+    <build>
+	    <plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+					<fork>true</fork>
+					<meminitial>256</meminitial>
+					<maxmem>1024</maxmem>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>	
+				
+	<repositories>
+		<repository>
+			<id>kuali</id>
+			<name>Kuali Repository</name>
+			<url>https://test.kuali.org/maven</url>
+		</repository>
+	</repositories>
+	<dependencies>
+		<dependency>
+	      <groupId>org.kuali.rice</groupId>
+	      <artifactId>rice-impl</artifactId>
+	      <version>1.0.3</version>
+	      <scope>compile</scope>
+    	</dependency>
+    	<dependency>
+	      <groupId>org.kuali.rice</groupId>
+	      <artifactId>rice-api</artifactId>
+	      <version>1.0.3</version>
+	      <scope>compile</scope>
+    	</dependency>
+	</dependencies>
+	
+</project>
