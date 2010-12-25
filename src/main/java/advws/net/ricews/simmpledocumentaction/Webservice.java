@@ -1,16 +1,11 @@
 package advws.net.ricews.simmpledocumentaction;
 
-import java.util.Collection;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-
-import org.kuali.rice.kew.actionitem.ActionItem;
-import org.kuali.rice.kew.webservice.DocumentResponse;
-import org.kuali.rice.kew.webservice.StandardResponse;
-import org.kuali.rice.kew.webservice.UserInRouteLogResponse;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 
 @Path("/")
 public interface Webservice {
@@ -20,62 +15,143 @@ public interface Webservice {
 	public String ping();
 	
 	@POST
-	@Path("/create/initiatorID/{initiatorID}/appid/{appid}/type/{type}/title/{title}")
-	public String create(@PathParam("initiatorID") String initiatorId, 
+	@Path("/doc/create/initiatorID/{initiatorID}/appid/{appid}/type/{type}/title/{title}")
+	public String create(@Context HttpHeaders hh,
+						 @PathParam("initiatorID") String initiatorId, 
 						 @PathParam("appid") String appDocId, 
 						 @PathParam("type") String docType, 
 						 @PathParam("title") String docTitle);
 
-	public StandardResponse save(String docId, String userId, String docTitle,
-			String annotation);
+	@POST
+	@Path("/doc/save/userID/{userID}/docid/{docid}/title/{title}/annotation/{annotation}")
+	public String save(@Context HttpHeaders hh,
+			           @PathParam("docid") String docid, 
+					   @PathParam("userID") String userID, 
+					   @PathParam("title") String docTitle,
+					   @PathParam("annotation") String annotation);
 	
-	public DocumentResponse get(String docId, String userId);
+	@GET
+	@Path("/doc/getdocument/userID/{userID}/docid/{docid}")
+	public String get(@Context HttpHeaders hh,
+					  @PathParam("docid") String docID,
+					  @PathParam("userID") String userID);
 	
-	public StandardResponse acknowledge(String docId, String userId,
-			String annotation);
+	@POST
+	@Path("/doc/acknowledge/userID/{userID}/docid/{docid}/annotation/{annotation}")
+	public String acknowledge(@Context HttpHeaders hh,
+							  @PathParam("docid") String docid,
+							  @PathParam("userID") String userID,  
+			 				  @PathParam("annotation") String annotation);
 	
-	public StandardResponse approve(String docId, String userId,
-			String docTitle, String docContent, String annotation);
+	@POST
+	@Path("/doc/approve/userID/{userID}/docid/{docid}/title/{title}/annotation/{annotation}")
+	public String approve(@Context HttpHeaders hh,
+						  @PathParam("docid") String docid,
+						  @PathParam("userID") String userID,  
+			 			  @PathParam("title") String docTitle,
+			 			  @PathParam("annotation") String annotation);
 	
-	public StandardResponse blanketApprove(String docId, String userId,
-			String docTitle, String docContent, String annotation);
+	@POST
+	@Path("/doc/blanketApprove/userID/{userID}/docid/{docid}/title/{title}/annotation/{annotation}")
+	public String blanketApprove(@Context HttpHeaders hh,
+								 @PathParam("docid") String docid, 
+								 @PathParam("userID") String userID, 
+								 @PathParam("title") String docTitle,
+								 @PathParam("annotation") String annotation);
 	
-	public StandardResponse cancel(String docId, String userId,
-			String annotation);
+	@POST
+	@Path("/doc/cancel/userID/{userID}/docid/{docid}/annotation/{annotation}")
+	public String cancel(@Context HttpHeaders hh,
+						 @PathParam("docid") String docid, 
+						 @PathParam("userID") String userID, 
+			   			 @PathParam("annotation") String annotation);
 	
-	public StandardResponse disapprove(String docId, String userId,
-			String annotation);
+	@POST
+	@Path("/doc/cancel/userID/{userID}/docid/{docid}/annotation/{annotation}")
+	public String disapprove(@Context HttpHeaders hh,
+							 @PathParam("docid") String docid,
+							 @PathParam("userID") String userID,  
+			   				 @PathParam("annotation") String annotation);
 	
-	public StandardResponse fyi(String docId, String userId);
 	
-	public StandardResponse route(String docId, String userId, String docTitle,
-			String docContent, String annotation);
+	@POST
+	@Path("/doc/fyi/userID/{userID}/docid/{docid}")
+	public String fyi(@Context HttpHeaders hh, @PathParam("docid") String docID, @PathParam("userID") String userID);
 	
-	public StandardResponse requestAdHocAckToGroup(String docId, String userId,
-			String recipientGroupId, String annotation);
+	@POST
+	@Path("/doc/route/userID/{userID}/docid/{docid}/title/{title}/annotation/{annotation}")
+	public String route(@Context HttpHeaders hh,
+						@PathParam("docid") String docid, 
+					    @PathParam("userID") String userID, 	
+			   			@PathParam("title") String docTitle,
+			   			@PathParam("annotation") String annotation);
 	
-	public StandardResponse requestAdHocAckToUser(String docId, String userId,
-			String recipientuserId, String annotation);
+	@POST
+	@Path("/doc/requestAdHocAckToGroup/userID/{userID}/docid/{docid}/recipientgroupid/{recipientgroupid}/annotation/{annotation}")
+	public String requestAdHocAckToGroup(@Context HttpHeaders hh,
+										 @PathParam("docid") String docid, 
+										 @PathParam("userID") String userID, 
+				  						 @PathParam("recipientgroupid") String recipientGroupId,
+				  						 @PathParam("annotation") String annotation);
 	
-	public StandardResponse requestAdHocApproveToGroup(String docId,
-			String userId, String recipientGroupId, String annotation);
+	@POST
+	@Path("/doc/requestAdHocAckToGroup/userID/{userID}/docid/{docid}/recipientid/{recipientid}/annotation/{annotation}")
+	public String requestAdHocAckToUser(@Context HttpHeaders hh,
+										@PathParam("docid") String docid, 
+			   							@PathParam("userID") String userID, 
+			   							@PathParam("recipientid") String recipientId,
+			   							@PathParam("annotation") String annotation);
 	
-	public StandardResponse requestAdHocApproveToUser(String docId,
-			String userId, String recipientuserId, String annotation);
+	@POST
+	@Path("/doc/requestAdHocApproveToGroup/userID/{userID}/docid/{docid}/recipientgroupid/{recipientGroupid}/annotation/{annotation}")
+	public String requestAdHocApproveToGroup(@Context HttpHeaders hh,
+											 @PathParam("docid") String docid, 
+				  							 @PathParam("userID") String userID, 
+				  							 @PathParam("recipientgroupid") String recipientGroupId,
+				  							 @PathParam("annotation") String annotation);
 	
-	public StandardResponse requestAdHocFyiToGroup(String docId, String userId,
-			String recipientGroupId, String annotation);
+	@POST
+	@Path("/doc/requestAdHocApproveToUser/userID/{userID}/docid/{docid}/recipientid/{recipientid}//annotation/{annotation}")
+	public String requestAdHocApproveToUser(@Context HttpHeaders hh,
+											@PathParam("docid") String docid, 
+				  							@PathParam("userID") String userID, 
+				  							@PathParam("recipientid") String recipientId,
+				  							@PathParam("annotation") String annotation);
+	
+	@POST
+	@Path("/doc/requestAdHocApproveToGroup/userID/{userID}/docid/{docid}/recipientgroupid/{recipientGroupid}/annotation/{annotation}")
+	public String requestAdHocFyiToGroup(@Context HttpHeaders hh,
+										 @PathParam("docid") String docid, 
+			   							 @PathParam("userID") String userID, 
+			   							 @PathParam("recipientgroupid") String recipientGroupId,
+			   							 @PathParam("annotation") String annotation);
 
-	public StandardResponse requestAdHocFyiToUser(String docId, String userId,
-			String recipientuserId, String annotation);	
+	@POST
+	@Path("/doc/requestAdHocApproveToUser/userID/{userID}/docid/{docid}/recipientid/{recipientid}//annotation/{annotation}")
+	public String requestAdHocFyiToUser(@Context HttpHeaders hh,
+										@PathParam("docid") String docid, 
+			  							@PathParam("userID") String userID, 
+			  							@PathParam("recipientid") String recipientId,
+			  							@PathParam("annotation") String annotation);	
 	
-	public UserInRouteLogResponse isUserInRouteLog(String docId, String userId);
+	@GET
+	@Path("/doc/isUserInRouteLog/userID/{userID}/docid/{docid}")
+	public String isUserInRouteLog(@Context HttpHeaders hh,
+								   @PathParam("docid") String docid, @PathParam("userID") String userID);
 	
-	public Collection<ActionItem> getUserInbox(String userId);
+	@GET
+	@Path("/actionitems/getinbox/{userID}")
+	public String getUserInbox(@Context HttpHeaders hh, String userId);
 	
-	public int countUserInboxItems(String userId);
+	@GET
+	@Path("/actionitems/countinbox/{userID}")
+	public int countUserInboxItems(@Context HttpHeaders hh, String userId);
 	
-	public Collection<ActionItem> findByRouteHeaderId(String routeHeaderIdStr);
+	@GET
+	@Path("/actionitems/findbyrouteheader/{routeHeaderIdStr}")
+	public String findByRouteHeaderId(@Context HttpHeaders hh, @PathParam("routeHeaderIdStr") String routeHeaderIdStr);
 	
-	public void sendNotification(String message);
+	@POST
+	@Path("/notification/send")
+	public void sendNotification(@Context HttpHeaders hh, String message);
 }

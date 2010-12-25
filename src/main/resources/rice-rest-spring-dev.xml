@@ -11,7 +11,9 @@
                            http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
                            
 	<bean id="baseballCardCollectionService" class="advws.net.ricews.BaseballCardCollectionServiceImplA"/>
-	<bean id="personServiceREST" class="advws.net.ricews.kim.person.RESTPersonServiceImpl"/>
+	<bean id="personServiceREST" class="advws.net.ricews.kim.person.RESTPersonServiceImpl"/>	
+	<bean id="simpleDocAction" class="advws.net.ricews.simmpledocumentaction.WebserviceImpl"/>
+	
 	
 	<bean id="kimRESTService" class="org.kuali.rice.ksb.messaging.RESTServiceDefinition" abstract="true">
 	   <property name="serviceNameSpaceURI" value="KIM"/>
@@ -28,13 +30,24 @@
 	  <property name="exportIf" value="true"/>
 	</bean>
 	
-<bean parent="kimLocalServiceExporter">
+	<bean parent="kimLocalServiceExporter">
 	<property name="remotedServiceRegistry" ref="enServiceInvoker"/>
 	  <property name="serviceDefinition">
 	    <bean parent="kimRESTService"
 	      p:service-ref="personServiceREST"
 	      p:localServiceName="personServiceREST" 
 	      p:resourceClass="advws.net.ricews.kim.person.RESTPersonService" />
+	  </property>
+	  <property name="exportIf" value="true"/>
+	</bean>
+
+<bean parent="kimLocalServiceExporter">
+	<property name="remotedServiceRegistry" ref="enServiceInvoker"/>
+	  <property name="serviceDefinition">
+	    <bean parent="kimRESTService"
+	      p:service-ref="simpleDocAction"
+	      p:localServiceName="simpleDocAction" 
+	      p:resourceClass="advws.net.ricews.simmpledocumentaction.Webservice" />
 	  </property>
 	  <property name="exportIf" value="true"/>
 </bean>
