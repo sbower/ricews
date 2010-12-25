@@ -14,15 +14,19 @@
 	<bean id="personServiceREST" class="advws.net.ricews.kim.person.RESTPersonServiceImpl"/>	
 	<bean id="simpleDocAction" class="advws.net.ricews.simmpledocumentaction.WebserviceImpl"/>
 	
+	<bean id="ServiceExporter" class="org.kuali.rice.ksb.messaging.RunModeServiceExporter" abstract="true">
+		<property name="runModePropertyName" value="kim.mode" />
+		<property name="validRunMode" value="${kim.mode}" />
+  	</bean>
 	
-	<bean id="kimRESTService" class="org.kuali.rice.ksb.messaging.RESTServiceDefinition" abstract="true">
-	   <property name="serviceNameSpaceURI" value="KIM"/>
+	<bean id="RESTService" class="org.kuali.rice.ksb.messaging.RESTServiceDefinition" abstract="true">
+	   <property name="serviceNameSpaceURI" value="RICE-WS"/>
 	</bean>
 	
-	<bean parent="kimLocalServiceExporter">
+	<bean parent="ServiceExporter">
 	<property name="remotedServiceRegistry" ref="enServiceInvoker"/>
 	  <property name="serviceDefinition">
-	    <bean parent="kimRESTService"
+	    <bean parent="RESTService"
 	      p:service-ref="baseballCardCollectionService"
 	      p:localServiceName="baseballCardCollectionService" 
 	      p:resourceClass="advws.net.ricews.BaseballCardCollectionServiceA" />
@@ -30,10 +34,10 @@
 	  <property name="exportIf" value="true"/>
 	</bean>
 	
-	<bean parent="kimLocalServiceExporter">
+	<bean parent="ServiceExporter">
 	<property name="remotedServiceRegistry" ref="enServiceInvoker"/>
 	  <property name="serviceDefinition">
-	    <bean parent="kimRESTService"
+	    <bean parent="RESTService"
 	      p:service-ref="personServiceREST"
 	      p:localServiceName="personServiceREST" 
 	      p:resourceClass="advws.net.ricews.kim.person.RESTPersonService" />
@@ -41,10 +45,10 @@
 	  <property name="exportIf" value="true"/>
 	</bean>
 
-<bean parent="kimLocalServiceExporter">
+<bean parent="ServiceExporter">
 	<property name="remotedServiceRegistry" ref="enServiceInvoker"/>
 	  <property name="serviceDefinition">
-	    <bean parent="kimRESTService"
+	    <bean parent="RESTService"
 	      p:service-ref="simpleDocAction"
 	      p:localServiceName="simpleDocAction" 
 	      p:resourceClass="advws.net.ricews.simmpledocumentaction.Webservice" />
