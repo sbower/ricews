@@ -67,7 +67,7 @@ public interface Webservice {
 			   			 @PathParam("annotation") String annotation);
 	
 	@POST
-	@Path("/doc/cancel/userID/{userID}/docid/{docid}/annotation/{annotation}")
+	@Path("/doc/disapprove/userID/{userID}/docid/{docid}/annotation/{annotation}")
 	public String disapprove(@Context HttpHeaders hh,
 							 @PathParam("docid") String docid,
 							 @PathParam("userID") String userID,  
