@@ -119,7 +119,7 @@ public interface Webservice {
 				  							@PathParam("annotation") String annotation);
 	
 	@POST
-	@Path("/doc/requestAdHocApproveToGroup/userID/{userID}/docid/{docid}/recipientgroupid/{recipientGroupid}/annotation/{annotation}")
+	@Path("/doc/requestAdHocFyiToGroup/userID/{userID}/docid/{docid}/recipientgroupid/{recipientGroupid}/annotation/{annotation}")
 	public String requestAdHocFyiToGroup(@Context HttpHeaders hh,
 										 @PathParam("docid") String docid, 
 			   							 @PathParam("userID") String userID, 
@@ -127,7 +127,7 @@ public interface Webservice {
 			   							 @PathParam("annotation") String annotation);
 
 	@POST
-	@Path("/doc/requestAdHocApproveToUser/userID/{userID}/docid/{docid}/recipientid/{recipientid}//annotation/{annotation}")
+	@Path("/doc/requestAdHocFyiToUser/userID/{userID}/docid/{docid}/recipientid/{recipientid}//annotation/{annotation}")
 	public String requestAdHocFyiToUser(@Context HttpHeaders hh,
 										@PathParam("docid") String docid, 
 			  							@PathParam("userID") String userID, 
