@@ -256,7 +256,7 @@ public class WebserviceImpl implements Webservice {
 	    checkAuthorization(hh);
 		Collection<ActionItem> actionItems = null;
 		actionItems = getActionListService().getActionList(userId, null);
-		return ConvertToXML.convert(actionItems);
+		return ConvertToXML.convertCollection(actionItems);
 	}
 	
 	public int countUserInboxItems(HttpHeaders hh, String userId) {
@@ -277,7 +277,7 @@ public class WebserviceImpl implements Webservice {
 	    catch ( NumberFormatException e ) {
 	    	LOG.error( "Expected Long type but got: " + routeHeaderIdStr );
 	    }
-	    return ConvertToXML.convert(actionItem);
+	    return ConvertToXML.convertCollection(actionItem);
 
 	}
 	

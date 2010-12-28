@@ -102,7 +102,7 @@ public interface Webservice {
 			@PathParam("annotation") String annotation);
 
 	@POST
-	@Path("/doc/requestAdHocApproveToGroup/userID/{userID}/docid/{docid}/recipientgroupid/{recipientGroupid}/annotation/{annotation}")
+	@Path("/doc/requestAdHocApproveToGroup/userID/{userID}/docid/{docid}/recipientgroupid/{recipientgroupid}/annotation/{annotation}")
 	public String requestAdHocApproveToGroup(@Context HttpHeaders hh,
 			@PathParam("docid") String docid,
 			@PathParam("userID") String userID,
@@ -118,7 +118,7 @@ public interface Webservice {
 			@PathParam("annotation") String annotation);
 
 	@POST
-	@Path("/doc/requestAdHocFyiToGroup/userID/{userID}/docid/{docid}/recipientgroupid/{recipientGroupid}/annotation/{annotation}")
+	@Path("/doc/requestAdHocFyiToGroup/userID/{userID}/docid/{docid}/recipientgroupid/{recipientgroupid}/annotation/{annotation}")
 	public String requestAdHocFyiToGroup(@Context HttpHeaders hh,
 			@PathParam("docid") String docid,
 			@PathParam("userID") String userID,
@@ -140,16 +140,15 @@ public interface Webservice {
 
 	@GET
 	@Path("/actionitems/getinbox/{userID}")
-	public String getUserInbox(@Context HttpHeaders hh, String userId);
+	public String getUserInbox(@Context HttpHeaders hh, @PathParam("userID") String userId);
 
 	@GET
 	@Path("/actionitems/countinbox/{userID}")
-	public int countUserInboxItems(@Context HttpHeaders hh, String userId);
+	public int countUserInboxItems(@Context HttpHeaders hh, @PathParam("userID") String userId);
 
 	@GET
 	@Path("/actionitems/findbyrouteheader/{routeHeaderIdStr}")
-	public String findByRouteHeaderId(@Context HttpHeaders hh,
-			@PathParam("routeHeaderIdStr") String routeHeaderIdStr);
+	public String findByRouteHeaderId(@Context HttpHeaders hh, @PathParam("routeHeaderIdStr") String routeHeaderIdStr);
 
 	@POST
 	@Path("/notification/send")
