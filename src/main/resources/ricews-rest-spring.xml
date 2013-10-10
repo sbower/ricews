@@ -10,50 +10,17 @@
                            http://www.springframework.org/schema/aop
                            http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
                            
-	<bean id="baseballCardCollectionService" class="advws.net.ricews.BaseballCardCollectionServiceImplA"/>
-	<bean id="personServiceREST" class="advws.net.ricews.kim.person.RESTPersonServiceImpl"/>	
-	<bean id="simpleDocAction" class="advws.net.ricews.simmpledocumentaction.WebserviceImpl"/>
+	<bean id="personServiceREST" class="advws.net.ricews.kim.person.service.impl.RESTPersonServiceImpl"/>	
 	
-	<bean id="ServiceExporter" class="org.kuali.rice.ksb.messaging.RunModeServiceExporter" abstract="true">
-		<property name="runModePropertyName" value="kim.mode" />
-		<property name="validRunMode" value="${kim.mode}" />
-  	</bean>
-	
-	<bean id="RESTService" class="org.kuali.rice.ksb.messaging.RESTServiceDefinition" abstract="true">
-	   <property name="serviceNameSpaceURI" value="RICE-WS"/>
-	</bean>
-	
-	<bean parent="ServiceExporter">
-	<property name="remotedServiceRegistry" ref="enServiceInvoker"/>
-	  <property name="serviceDefinition">
-	    <bean parent="RESTService"
-	      p:service-ref="baseballCardCollectionService"
-	      p:localServiceName="baseballCardCollectionService" 
-	      p:resourceClass="advws.net.ricews.BaseballCardCollectionServiceA" />
-	  </property>
-	  <property name="exportIf" value="true"/>
-	</bean>
-	
-	<bean parent="ServiceExporter">
-	<property name="remotedServiceRegistry" ref="enServiceInvoker"/>
-	  <property name="serviceDefinition">
-	    <bean parent="RESTService"
-	      p:service-ref="personServiceREST"
-	      p:localServiceName="personServiceREST" 
-	      p:resourceClass="advws.net.ricews.kim.person.RESTPersonService" />
-	  </property>
-	  <property name="exportIf" value="true"/>
-	</bean>
-
-<bean parent="ServiceExporter">
-	<property name="remotedServiceRegistry" ref="enServiceInvoker"/>
-	  <property name="serviceDefinition">
-	    <bean parent="RESTService"
-	      p:service-ref="simpleDocAction"
-	      p:localServiceName="simpleDocAction" 
-	      p:resourceClass="advws.net.ricews.simmpledocumentaction.Webservice" />
-	  </property>
-	  <property name="exportIf" value="true"/>
-</bean>
-
+    <bean class="org.kuali.rice.ksb.api.bus.support.ServiceBusExporter">
+              <property name="serviceBus" ref="rice.ksb.serviceBus" />
+              <property name="serviceDefinition">
+                      <bean class="org.kuali.rice.ksb.api.bus.support.RestServiceDefinition">
+                              <property name="serviceNameSpaceURI" value="/kim/v2_x" />
+                              <property name="localServiceName" value="personServiceREST" />
+                              <property name="service" ref="personServiceREST" />
+                              <property name="resourceClass" value="advws.net.ricews.kim.person.service.RESTPersonService" />
+                      </bean>
+              </property>
+      </bean>
 </beans>

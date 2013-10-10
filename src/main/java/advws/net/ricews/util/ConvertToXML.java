@@ -4,17 +4,14 @@ import java.util.Collection;
 
 import org.kuali.rice.kew.actionitem.ActionItem;
 import org.kuali.rice.kew.actionitem.ActionItemActionListExtension;
-import org.kuali.rice.kew.webservice.DocumentResponse;
-import org.kuali.rice.kew.webservice.StandardResponse;
-import org.kuali.rice.kim.bo.impl.PersonImpl;
+
+import org.kuali.rice.kim.impl.identity.PersonImpl;
 import com.thoughtworks.xstream.XStream;
 
 public class ConvertToXML {
 	public static String convert(Object o) {
 		XStream xstream = new XStream();
 		xstream.alias("person", PersonImpl.class);
-		xstream.alias("person", DocumentResponse.class);
-		xstream.alias("person", StandardResponse.class);
 		
 		return xstream.toXML(o);
 	}
