@@ -1,4 +1,4 @@
-package advws.net.ricews.kim.person.service;
+package net.advws.ricews.kim.person.service;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

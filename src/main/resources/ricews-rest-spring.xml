@@ -10,16 +10,28 @@
                            http://www.springframework.org/schema/aop
                            http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
                            
-	<bean id="personServiceREST" class="advws.net.ricews.kim.person.service.impl.RESTPersonServiceImpl"/>	
+	<bean id="personServiceREST" class="net.advws.ricews.kim.person.service.impl.RESTPersonServiceImpl"/>	
+	<bean id="RestPermissionService" class="net.advws.ricews.kim.permission.service.impl.RestPermissionServiceImpl"/>   
 	
     <bean class="org.kuali.rice.ksb.api.bus.support.ServiceBusExporter">
               <property name="serviceBus" ref="rice.ksb.serviceBus" />
               <property name="serviceDefinition">
                       <bean class="org.kuali.rice.ksb.api.bus.support.RestServiceDefinition">
-                              <property name="serviceNameSpaceURI" value="/kim/v2_x" />
+                              <property name="serviceNameSpaceURI" value="http://kfs.kuali.org/kfs/v5_x" />
                               <property name="localServiceName" value="personServiceREST" />
                               <property name="service" ref="personServiceREST" />
-                              <property name="resourceClass" value="advws.net.ricews.kim.person.service.RESTPersonService" />
+                              <property name="resourceClass" value="net.advws.ricews.kim.person.service.RESTPersonService" />
+                      </bean>
+              </property>
+      </bean>
+          <bean class="org.kuali.rice.ksb.api.bus.support.ServiceBusExporter">
+              <property name="serviceBus" ref="rice.ksb.serviceBus" />
+              <property name="serviceDefinition">
+                      <bean class="org.kuali.rice.ksb.api.bus.support.RestServiceDefinition">
+                              <property name="serviceNameSpaceURI" value="http://kfs.kuali.org/kfs/v5_x" />
+                              <property name="localServiceName" value="RestPermissionService" />
+                              <property name="service" ref="RestPermissionService" />
+                              <property name="resourceClass" value="net.advws.ricews.kim.permission.service.RestPermissionService" />
                       </bean>
               </property>
       </bean>

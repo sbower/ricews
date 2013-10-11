@@ -1,17 +1,24 @@
-package advws.net.ricews.kim.person.service.impl;
+package net.advws.ricews.kim.person.service.impl;
  
+import java.util.Collection;
+
+import net.advws.ricews.kim.person.service.RESTPersonService;
+import net.advws.ricews.util.ConvertToXML;
+
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
-
-import advws.net.ricews.kim.person.service.RESTPersonService;
-import advws.net.ricews.util.ConvertToXML;
+import org.kuali.rice.krad.service.KRADServiceLocator;
+import org.kuali.rice.krad.util.GlobalVariables;
 
 
 public class RESTPersonServiceImpl implements RESTPersonService {
 
-	public String getMe() {
-		Person me =  KimApiServiceLocator.getPersonService().getPersonByPrincipalName("user1");
-		return ConvertToXML.convert(me);
+    /*KRADServiceLocator.getBusinessObjectSerializerService()
+                    .serializeBusinessObjectToXml(me)
+    */
+    
+	public String getMe() {	    
+	    return getPersonByPrincipalName(GlobalVariables.getUserSession().getPrincipalName());
 	}
 
 	public String getPersonByPrincipalName(String prncpl_nm) {
@@ -30,8 +37,8 @@ public class RESTPersonServiceImpl implements RESTPersonService {
 	}
 
 	public String getPersonByExternalIdentifier(String type, String id) {
-		Person me = (Person) KimApiServiceLocator.getPersonService().getPersonByExternalIdentifier(type, id).get(0);
-		return ConvertToXML.convert(me);
+		Collection<Person> peeps = KimApiServiceLocator.getPersonService().getPersonByExternalIdentifier(type, id);
+		return ConvertToXML.convertCollection(peeps);
 	}
 
 }
